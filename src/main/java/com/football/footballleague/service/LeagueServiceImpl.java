@@ -1,5 +1,6 @@
 package com.football.footballleague.service;
 
+import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +36,22 @@ public class LeagueServiceImpl implements LeagueService{
     @Override
     public List<Country> getListOfData() {
         String url = baseUrl + apiKey;
-        ResponseEntity<Country[]> restTemplateForEntity = restTemplate.getForEntity(url, Country[].class);
+        ResponseEntity<Country[]> restTemplateForEntity =
+                restTemplate.getForEntity(url, Country[].class);
         if(!ObjectUtils.isEmpty(restTemplateForEntity)){
             Country[] body = restTemplateForEntity.getBody();
+            return Arrays.asList(body);
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Competition> getListById() {
+        String url = competitionBaseUrl + apiKey;
+        ResponseEntity<Competition[]> restTemplateForEntity =
+                restTemplate.getForEntity(url, Competition[].class);
+        if(!ObjectUtils.isEmpty(restTemplateForEntity)){
+            Competition[] body = restTemplateForEntity.getBody();
             return Arrays.asList(body);
         }
         return Collections.emptyList();

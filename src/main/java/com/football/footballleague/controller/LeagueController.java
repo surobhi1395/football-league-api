@@ -1,5 +1,6 @@
 package com.football.footballleague.controller;
 
+import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import com.football.footballleague.service.LeagueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,12 @@ public class LeagueController {
 
    @GetMapping("/getList")
    public List<Country> getList(){
-       return leagueService.getListOfData();
+      return leagueService.getListOfData();
+   }
+
+   @GetMapping("/listById")
+   public List<Competition> getDataById(){
+      return leagueService.getListById();
    }
 
 }
