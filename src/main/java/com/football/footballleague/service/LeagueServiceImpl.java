@@ -28,14 +28,17 @@ public class LeagueServiceImpl implements LeagueService{
 
     @Value("${api.league.key}")
     private String apiKey;
+    
+    @Value("${api.league.competition.base.url}")
+    private String competitionBaseUrl;
 
     @Override
     public List<Country> getListOfData() {
         String url = baseUrl + apiKey;
-        ResponseEntity<Country> userResponseEntity = restTemplate.getForEntity(url, Country.class);
-        if(!ObjectUtils.isEmpty(userResponseEntity)){
-            Country country = userResponseEntity.getBody();
-            return Arrays.asList(country);
+        ResponseEntity<Country[]> restTemplateForEntity = restTemplate.getForEntity(url, Country[].class);
+        if(!ObjectUtils.isEmpty(restTemplateForEntity)){
+            Country[] body = restTemplateForEntity.getBody();
+            return Arrays.asList(body);
         }
         return Collections.emptyList();
     }
