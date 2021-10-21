@@ -2,6 +2,11 @@ package com.football.footballleague.controller;
 
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
+import com.football.footballleague.model.Players;
+import com.football.footballleague.model.teams.Coach;
+import com.football.footballleague.model.teams.Player;
+import com.football.footballleague.model.teams.Root;
+import com.football.footballleague.model.teams.Team;
 import com.football.footballleague.service.LeagueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,16 @@ public class LeagueController {
    @GetMapping("/listById")
    public List<Competition> getDataById(){
       return leagueService.getListById();
+   }
+
+   @GetMapping("/getTeams")
+   public List<Root> getTeamList(){
+      return leagueService.getTeamData();
+   }
+
+   @GetMapping("/getPlayer")
+   public List<Players> getPlayersDetail(){
+      return leagueService.getPlayersData();
    }
 
 }

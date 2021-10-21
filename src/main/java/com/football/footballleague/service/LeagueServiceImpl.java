@@ -2,6 +2,9 @@ package com.football.footballleague.service;
 
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
+import com.football.footballleague.model.Players;
+import com.football.footballleague.model.teams.Coach;
+import com.football.footballleague.model.teams.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class LeagueServiceImpl implements LeagueService{
@@ -32,6 +34,12 @@ public class LeagueServiceImpl implements LeagueService{
     
     @Value("${api.league.competition.base.url}")
     private String competitionBaseUrl;
+
+    @Value("${api.league.teams.base.url}")
+    private String teamBaseUrl;
+
+    @Value("${api.league.players.base.url}")
+    private String playersBaseUrl;
 
     @Override
     public List<Country> getListOfData() {
@@ -53,6 +61,31 @@ public class LeagueServiceImpl implements LeagueService{
         if(!ObjectUtils.isEmpty(restTemplateForEntity)){
             Competition[] body = restTemplateForEntity.getBody();
             return Arrays.asList(body);
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Root> getTeamData() {
+        String url = teamBaseUrl + apiKey;
+        ResponseEntity<Root[]> restTemplateForEntity =
+                restTemplate.getForEntity(url, Root[].class);
+        if(!ObjectUtils.isEmpty(restTemplateForEntity)) {
+            Root[] roots = restTemplateForEntity.getBody();
+            return Arrays.asList(roots);
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Players> getPlayersData() {
+        String url = playersBaseUrl + apiKey;
+        ResponseEntity<Players[]> responseEntity =
+                restTemplate.getForEntity(url, Players[].class);
+
+        if(!ObjectUtils.isEmpty(responseEntity)){
+            Players[] players = responseEntity.getBody();
+            return Arrays.asList(players);
         }
         return Collections.emptyList();
     }
