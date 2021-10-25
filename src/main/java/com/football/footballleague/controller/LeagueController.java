@@ -3,6 +3,7 @@ package com.football.footballleague.controller;
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
+import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Player;
 import com.football.footballleague.model.teams.Root;
@@ -38,6 +39,11 @@ public class LeagueController {
    @GetMapping("/getPlayer")
    public List<Players> getPlayersDetail(){
       return leagueService.getPlayersData();
+   }
+
+   @GetMapping("/getStandings")
+   public List<Standing> getStandingList(){
+      return leagueService.getStandings();
    }
 
 }

@@ -3,6 +3,7 @@ package com.football.footballleague.service;
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
+import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Root;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class LeagueServiceImpl implements LeagueService{
 
     @Value("${api.league.players.base.url}")
     private String playersBaseUrl;
+
+    @Value("${api.league.standing.base.url}")
+    private String standingBaseUrl;
 
     @Override
     public List<Country> getListOfData() {
@@ -89,4 +93,20 @@ public class LeagueServiceImpl implements LeagueService{
         }
         return Collections.emptyList();
     }
+
+    @Override
+    public List<Standing> getStandings() {
+        String url = standingBaseUrl + apiKey;
+        ResponseEntity<Standing[]> responseEntity =
+                restTemplate.getForEntity(url, Standing[].class);
+
+        if (!ObjectUtils.isEmpty(responseEntity)) {
+            Standing[] standings = responseEntity.getBody();
+            return Arrays.asList(standings);
+        }
+        return Collections.emptyList();
+    }
+
+
+
 }

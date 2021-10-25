@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
+import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.teams.Root;
 import com.football.footballleague.service.LeagueService;
 
@@ -45,6 +46,18 @@ class LeagueControllerTest {
     void testGetList() throws Exception {
         when(this.leagueService.getListOfData()).thenReturn(new ArrayList<Country>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/getList");
+        MockMvcBuilders.standaloneSetup(this.leagueController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("[]"));
+    }
+
+    @Test
+    void testGetStandingList() throws Exception {
+        when(this.leagueService.getStandings()).thenReturn(new ArrayList<Standing>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/getStandings");
         MockMvcBuilders.standaloneSetup(this.leagueController)
                 .build()
                 .perform(requestBuilder)

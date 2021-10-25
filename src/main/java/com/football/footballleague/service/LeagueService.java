@@ -3,6 +3,7 @@ package com.football.footballleague.service;
 import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
+import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Player;
 import com.football.footballleague.model.teams.Root;
@@ -22,5 +23,7 @@ public interface LeagueService {
    public List<Root> getTeamData();
 
    public List<Players> getPlayersData();
+
+   public List<Standing> getStandings();
 
 }
