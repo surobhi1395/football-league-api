@@ -5,6 +5,7 @@ import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
 import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.lineups.Lineups;
+import com.football.footballleague.model.stats.Statistics;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Player;
 import com.football.footballleague.model.teams.Root;
@@ -50,6 +51,11 @@ public class LeagueController {
    @GetMapping("/getLineUp")
    public Lineups getLineUpDetails(){
       return leagueService.getLineUps();
+   }
+
+   @GetMapping("/getStats")
+   public Statistics getStats(){
+      return leagueService.getStatsDetails();
    }
 
 }

@@ -5,6 +5,7 @@ import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
 import com.football.footballleague.model.Standing;
 import com.football.footballleague.model.lineups.Lineups;
+import com.football.footballleague.model.stats.Statistics;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Root;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class LeagueServiceImpl implements LeagueService{
 
     @Value("${api.league.lineup.base.url}")
     private String lineUpBaseUrl;
+
+    @Value("${api.league.statistics.base.url}")
+    private String statsBaseUrl;
 
     @Override
     public List<Country> getListOfData() {
@@ -119,6 +123,18 @@ public class LeagueServiceImpl implements LeagueService{
         if (!ObjectUtils.isEmpty(responseEntity)) {
             Lineups lineups = responseEntity.getBody();
             return lineups;
+        }
+        return null;
+    }
+
+    @Override
+    public Statistics getStatsDetails() {
+    String url = statsBaseUrl + apiKey;
+        ResponseEntity<Statistics> responseEntity =
+                restTemplate.getForEntity(url, Statistics.class);
+        if (!ObjectUtils.isEmpty(responseEntity)) {
+            Statistics statistics = responseEntity.getBody();
+            return statistics;
         }
         return null;
     }
