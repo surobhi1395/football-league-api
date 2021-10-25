@@ -4,6 +4,7 @@ import com.football.footballleague.model.Competition;
 import com.football.footballleague.model.Country;
 import com.football.footballleague.model.Players;
 import com.football.footballleague.model.Standing;
+import com.football.footballleague.model.lineups.Lineups;
 import com.football.footballleague.model.teams.Coach;
 import com.football.footballleague.model.teams.Player;
 import com.football.footballleague.model.teams.Root;
@@ -25,5 +26,7 @@ public interface LeagueService {
    public List<Players> getPlayersData();
 
    public List<Standing> getStandings();
+
+   public Lineups getLineUps();
 
 }
